@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Lexend&family=Caveat&family=Gloria+Hallelujah&display=swap');
+
+body {
+    background: #F7ECDB;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #e2d7a0;
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 48px;
+    margin: 0 0 20px;
+}
+
+.navbar a {
+    font-family: Lexend;
+    font-weight: 600;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+}
+
+.navbar a.activeLink {
+    color: #c37d3c;
+}
+
+/* Page Cover */
+.page_cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 98vh;
+    width: 100%;
+    padding-top: 18vh;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.page_cover .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    gap: 30px;
+}
+
+.page_cover .main .text {
+    font-family: Bungee;
+    font-size: 42px;
+    color: #000;
+    line-height: 1;
+}
+
+.page_cover .main img {
+    max-width: 80vw;
+    max-height: 60vh;
+}
+
+.page_cover .me {
+    font-family: Lexend;
+    font-size: 0.8rem;
+    color: #4f4f4f;
+    position: absolute;
+    bottom: 4rem;
+}
+
+.fadeOut {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+/* Page List */
+.page_list {
+    padding: 15px;
+}
+
+.list_characters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.list_characters .item_character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 35px;
+    color: #000;
+    text-decoration: none;
+}
+
+.list_characters .item_character img {
+    width: 160px;
+    border-radius: 16px;
+}
+
+.list_characters .item_character .name {
+    font-family: "Gloria Hallelujah";
+    font-size: 18px;
+    margin-top: 8px;
+    line-height: 1;
+}
+
+/* Page Detail Character  */
+.page_detail {
+    padding-top: 10vh;
+}
+.page_detail .character_data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page_detail .pict {
+    width: 180px;
+}
+
+.page_detail .pict img {
+    width: 100%;
+    border-radius: 16px;
+}
+
+.page_detail .character_data > .name {
+    font-family: "Gloria Hallelujah";
+    font-size: 50px;    
+}
+
+.page_detail .character_data .box {
+    background-color: #ead9ba;
+    border-radius: 16px;
+    padding: 10px 20px;
+    font-family: Lexend;
+    line-height: 1.5;
+    width: 70%;
+}
+
+.page_detail .character_data .location {
+    margin-top: 90px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page_detail .character_data .location input {
+    height: 40px;
+    background-color: #f9f4d9;
+    border: 1px solid #d6cc95;
+    border-radius: 10px;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    font-family: Lexend;
+}
+
+.page_detail .character_data .location input:not(.edit) {
+    border: none;
+}
+
+.page_detail .character_data .location button {
+    padding: 10px;
+    background-color: #ffd17e;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    font-family: Lexend;
+}
+
+/* Page List Locations  */
+.page_locationList {
+    padding: 10px 20px;
+}
+
+.page_locationList .title {
+    font-family: Caveat;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.page_locationList .lists {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.loc {
+    padding: 7px 14px;
+    background-color: #e4be93;
+    width: fit-content;
+    border-radius: 8px;
+    font-family: Lexend;
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+}
+
+/* Page Characters in Location */
+.page_charactersInLoc {
+    padding: 20px;
+}
+
+.page_charactersInLoc .title {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.page_charactersInLoc .title .theLoc {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.page_charactersInLoc .title .text {
+    font-family: Caveat;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+@media (min-width: 700px) {
+    .page_cover {
+        padding-top: 11vh;
+    }
+
+    .page_cover .main img {
+        max-width: 50vw;
+    }
+
+    .page_cover .main .text {
+        font-size: 50px;
+    }
+
+    .page_cover .me {
+        bottom: 2rem;
+    }
+}

@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { LocationContext, TContextData } from "./context/LocationContext";
 import Navbar from "./components/Navbar";
+import Pagination from "./components/Pagination";
 
 export interface ICharacterData {
     id: number,
@@ -26,19 +27,26 @@ export interface ICharacterData {
 }
 
 const PageCharactersList = () => {
+    const [searchParams] = useSearchParams();
+    const currentPageInLink:number = parseInt(searchParams.get('page') || "1"); // Default to page 1
+
     const [characters, setCharacters] = useState<ICharacterData[]>();
 
+    const [totalPages, setTotalPages] = useState<number>();
     const {setCharacterCount} = useContext(LocationContext) as TContextData;
     const getData = async () => {
-        const ax = await axios.get(`${process.env.REACT_APP_API}/character`);
+        const ax = await axios.get(`${process.env.REACT_APP_API}/character?page=${currentPageInLink}`);
         const data = ax?.data;
         setCharacters(data?.results);
         setCharacterCount(data?.info?.count);
+
+        const totalPage = data?.info?.pages;
+        setTotalPages(totalPage);
     }
 
     useEffect(() => {
         getData();
-    }, [])
+    }, [currentPageInLink])
 
     return (
         <>
@@ -53,6 +61,10 @@ const PageCharactersList = () => {
                         </Link>
                     ))}
                 </div>
+                
+                {totalPages &&
+                    <Pagination currentPage={currentPageInLink} pathname="/list-characters" totalPage={totalPages} />
+                }
             </div>
         </>
     );

@@ -220,6 +220,43 @@ body {
     font-size: 30px;
 }
 
+/* Pagination */
+.pageNumber {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.pageNumber div {
+    width: 27px;
+    height: 27px;
+    color: #fff;
+    border-radius: 50%;
+    background-color: #9C7B5E;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pageNumber div.active {
+    background-color: #FFB627;
+}
+
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+    margin-top: 50px;
+}
+
 @media (min-width: 700px) {
     .page_cover {
         padding-top: 11vh;

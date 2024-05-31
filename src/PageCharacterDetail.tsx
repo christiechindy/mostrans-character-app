@@ -10,7 +10,6 @@ const PageCharacterDetail = () => {
     const {id} = useParams();
 
     const [character, setCharacter] = useState<ICharacterData>();
-    const [locationEditMode, setLocationEditMode] = useState<boolean>(true);
 
     const getCharacterData = async () => {
         const ax = await axios.get(`${process.env.REACT_APP_API}/character/${id}`);
@@ -23,30 +22,60 @@ const PageCharacterDetail = () => {
     }, [])
 
     const {locationList, setLocationList, peopleLocationData, setPeopleLocationData} = useContext(LocationContext) as TContextData;
-    const haveLocationAlready = locationList[peopleLocationData[Number(id)]];
+    const [locationEditMode, setLocationEditMode] = useState<boolean>(peopleLocationData[Number(id)] ? false:true);
+    const [locationInput, setLocationInput] = useState<string>(locationList[peopleLocationData[Number(id)]] ?? "");
 
-    const [locationInput, setLocationInput] = useState<string>(haveLocationAlready ?? "");
     const handleLocationButton = () => {
-        let AtIndex = -1;
         if (locationEditMode) {
-            // append the new location to the list if it has not already been in the list, else just change the mapping
+            const prevLocID = peopleLocationData[Number(id)];
+            console.log("the prevLocID is, ", prevLocID);
+            let newLocID;
+            // if locationInput not in the list
             if (!locationList.includes(locationInput)) {
-                AtIndex = locationList.length; //-1+1
+                newLocID = locationList.length;
                 setLocationList([...locationList, locationInput]);
-            } else {
-                AtIndex = locationList.indexOf(locationInput);
+            } else { // if there
+                newLocID = locationList.indexOf(locationInput);
             }
-
-            console.log(`the id ${id} should have locationId ${AtIndex}`);
-
-            setPeopleLocationData(prev => {
-                const updated = [...prev];
-                updated[Number(id)] = AtIndex;
-                return updated;
-            })
+            
+            // then change the peopleLocationData
+            assignCharToNewLocID(prevLocID, newLocID)
+            // if noChar is in the prevLoc, change the element to empty string            
+            // checkPrevLocIfNoneDelete(prevLocID);
+            // in calling checkPrevLocIfNoneDelete(), we need to check it against the updated value,
+            // as we cant do that (since the async nature of state update in React), then we'll call that function inside the assignCharToNewLocID function.
         }
 
         setLocationEditMode(prev => !prev);
+    }
+
+    const assignCharToNewLocID = (prevLocID: number, newLocID: number) => {
+        setPeopleLocationData(prev => {
+            const tmp = [...prev];
+            tmp[Number(id)] = newLocID;
+            checkPrevLocIfNoneDelete(prevLocID, tmp);
+            return tmp;
+        })
+    }
+
+    const checkPrevLocIfNoneDelete = (prevLocID: number, peopleLocationDataa: number[]) => {
+        // only do this when the edit happens, not when it is the first time inputting the location
+        if (prevLocID !== -1 && prevLocID !== null) {
+            let noOneInPrevLoc = true;
+            for (let i = 0; i < peopleLocationDataa.length; i++) {
+                if (peopleLocationDataa[i] === prevLocID) {
+                    noOneInPrevLoc = false;
+                    break;
+                }
+            }
+            if (noOneInPrevLoc) {
+                setLocationList(prev => {
+                    const tmp = [...prev];
+                    tmp[prevLocID] = "";
+                    return tmp;
+                })
+            }
+        }
     }
 
     return (

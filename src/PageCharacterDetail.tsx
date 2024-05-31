@@ -22,7 +22,7 @@ const PageCharacterDetail = () => {
     }, [])
 
     const {locationList, setLocationList, peopleLocationData, setPeopleLocationData} = useContext(LocationContext) as TContextData;
-    const [locationEditMode, setLocationEditMode] = useState<boolean>(peopleLocationData[Number(id)] ? false:true);
+    const [locationEditMode, setLocationEditMode] = useState<boolean>(locationList[peopleLocationData[Number(id)]] ? false:true);
     const [locationInput, setLocationInput] = useState<string>(locationList[peopleLocationData[Number(id)]] ?? "");
 
     const handleLocationButton = () => {
